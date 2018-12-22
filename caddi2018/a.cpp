@@ -4,10 +4,17 @@ using namespace std;
 
 int main()
 {
-    int k;
-    scanf("%d", &k);
+    string n;
+    cin >> n;
 
-    printf("%d\n", k % 2 == 0 ? k * k / 4 : (k * k - 1) / 4);
+    int cnt = 0;
+    for (int i = 0; i < n.size(); i++)
+    {
+        if (n[i] == '2')
+            cnt++;
+    }
+
+    printf("%d\n", cnt);
 
     return 0;
 }

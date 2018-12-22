@@ -2,12 +2,21 @@
 
 using namespace std;
 
-int main() {
-    int a, b, c, d;
+int main()
+{
+    int n, h, w;
+    scanf("%d %d %d", &n, &h, &w);
 
-    scanf("%d %d %d %d", &a, &b, &c, &d);
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int a, b;
+        scanf("%d %d", &a, &b);
+        if (h <= a && w <= b)
+            cnt++;
+    }
 
-    printf("%d %d %d %d\n", c - d + b, d + c - a, a - d + b, b + c - a);
+    printf("%d\n", cnt);
 
     return 0;
 }
