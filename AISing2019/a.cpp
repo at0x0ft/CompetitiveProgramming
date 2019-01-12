@@ -4,17 +4,10 @@ using namespace std;
 
 int main()
 {
-    string n;
-    cin >> n;
+    int n, h, w;
+    scanf("%d %d %d", &n, &h, &w);
 
-    int cnt = 0;
-    for (int i = 0; i < n.size(); i++)
-    {
-        if (n[i] == '2')
-            cnt++;
-    }
-
-    printf("%d\n", cnt);
+    printf("%d\n", ((n - h) + 1) * ((n - w) + 1));
 
     return 0;
 }

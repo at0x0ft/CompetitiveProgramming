@@ -4,19 +4,17 @@ using namespace std;
 
 int main()
 {
-    int n, h, w;
-    scanf("%d %d %d", &n, &h, &w);
+    int n, a, b, fcnt = 0, scnt = 0, tcnt = 0;
+    scanf("%d %d %d", &n, &a, &b);
 
-    int cnt = 0;
     for (int i = 0; i < n; i++)
     {
-        int a, b;
-        scanf("%d %d", &a, &b);
-        if (h <= a && w <= b)
-            cnt++;
+        int p;
+        scanf("%d", &p);
+        p <= a ? fcnt++ : (p <= b ? scnt++ : tcnt++);
     }
 
-    printf("%d\n", cnt);
+    printf("%d\n", min(fcnt, min(scnt, tcnt)));
 
     return 0;
 }
