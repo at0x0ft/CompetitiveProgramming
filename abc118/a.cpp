@@ -4,10 +4,10 @@ using namespace std;
 
 int main()
 {
-    int t, x;
-    scanf("%d %d", &t, &x);
+    int a, b;
+    scanf("%d %d", &a, &b);
 
-    printf("%f\n", (t * 1.0) / x);
+    printf("%d\n", b % a == 0 ? a + b : b - a);
 
     return 0;
 }
