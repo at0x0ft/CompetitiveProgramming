@@ -3,79 +3,56 @@
 using namespace std;
 
 #define MAX_N 10000 + 1
-#define CV_TABLE_LEN 8
 
 int n, m, a;
-vector<int> dp[MAX_N] = {vector<int>()};
-int cvtable[CV_TABLE_LEN]; // cvtable[cost] = value;
+string dp[MAX_N];
+map<int, char> cvmap; // cvmap[cost] = value;
 
-void inputCVTable(const int n)
+int getCost(const char value)
 {
-    switch (n)
+    switch (value)
     {
-    case 1:
-        cvtable[2] = max(cvtable[2], n);
-        break;
-    case 2:
-        cvtable[5] = max(cvtable[5], n);
-        break;
-    case 3:
-        cvtable[5] = max(cvtable[5], n);
-        break;
-    case 4:
-        cvtable[4] = max(cvtable[4], n);
-        break;
-    case 5:
-        cvtable[5] = max(cvtable[5], n);
-        break;
-    case 6:
-        cvtable[6] = max(cvtable[6], n);
-        break;
-    case 7:
-        cvtable[3] = max(cvtable[3], n);
-        break;
-    case 8:
-        cvtable[7] = max(cvtable[7], n);
-        break;
-    case 9:
-        cvtable[6] = max(cvtable[6], n);
-        break;
+    case '1':
+        return 2;
+    case '7':
+        return 3;
+    case '4':
+        return 4;
+    case '2':
+    case '3':
+    case '5':
+        return 5;
+    case '6':
+    case '9':
+        return 6;
+    case '8':
+        return 7;
     default:
-        break;
+        return 0;
     }
 }
 
-vector<int> cmp(vector<int> &a, vector<int> &b)
+void inputCVMap(const char value)
 {
-    sort(a.begin(), a.end(), greater<int>());
-    sort(b.begin(), b.end(), greater<int>());
+    int c = getCost(value);
+    if (cvmap.count(c) == 0 || (cvmap.count(c) > 0 && cvmap[c] < value))
+        cvmap[c] = value;
+}
 
-    int alen = a.size(), blen = b.size();
-    if (alen < blen)
+string cmp(string &a, string &b)
+{
+    if (a.size() < b.size())
         return b;
-    else if (alen > blen)
+    else if (a.size() > b.size())
         return a;
-    else
-    {
-        for (int i = 0; i < alen; i++)
-        {
-            if (a[i] < b[i])
-                return b;
-            else if (a[i] > b[i])
-                return a;
-        }
-    }
-    return a;
+
+    return a < b ? b : a;
 }
 
 void printans()
 {
-    int s = dp[n].size();
-    for (int i = 0; i < s; i++)
-    {
-        printf("%d", dp[n][i]);
-    }
-    printf("\n");
+    sort(dp[n].begin(), dp[n].end(), greater<char>());
+    cout << dp[n] << "\n";
 }
 
 int main()
@@ -85,28 +62,27 @@ int main()
     {
         int a;
         scanf("%d", &a);
-        inputCVTable(a);
+        inputCVMap(a + '0' - 0);
     }
 
-    // i = 0
-    for (int j = 0; j < CV_TABLE_LEN; j++)
+    // Initialize
+    for (auto cvp : cvmap)
     {
-        if (cvtable[j] > 0)
-            dp[j].push_back(cvtable[j]);
+        dp[cvp.first] += cvp.second;
     }
 
     for (int i = 1; i <= n; i++)
     {
-        if (dp[i].size() == 0)
+        if (dp[i] == "")
             continue;
 
-        for (int j = 0; j < CV_TABLE_LEN; j++)
+        for (auto cvp : cvmap)
         {
-            if (cvtable[j] > 0 && i + j <= n)
+            if (i + cvp.first <= n)
             {
-                vector<int> v = dp[i];
-                v.push_back(cvtable[j]);
-                dp[i + j] = cmp(dp[i + j], v);
+                string v = dp[i];
+                v += cvp.second;
+                dp[i + cvp.first] = cmp(dp[i + cvp.first], v);
             }
         }
     }
