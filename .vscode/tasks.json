@@ -4,33 +4,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build (C)",
-            "type": "shell",
-            "command": "gcc",
-            "options": {
-                "shell": {
-                    "executable": "C:\\Windows\\System32\\wsl.exe",
-                }
-            },
-            "args": [
-                "-Wall",
-                "-Wextra",
-                "-O0",
-                "-g3",
-                "-o",
-                "`wslpath",
-                "'${fileDirname}/a.out'`",
-                "`wslpath",
-                "'${file}'`",
-                "-lm"
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": "$gcc"
-        },
-        {
             "label": "Build (C++)",
             "type": "shell",
             "options": {
