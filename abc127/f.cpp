@@ -4,7 +4,7 @@
 #define REP(i, n) FOR(i, 0, n)
 #define REPR(i, n) FORR(i, n, 0)
 #define ALL(v) v.begin(), v.end()
-#define DMP(a) std::cerr << #a << " = " << std::a << "\n"
+#define DMP(a) std::cerr << "[Debug] : " << #a << " = " << a << "\n"
 using namespace std;
 typedef long long ll;
 struct aaa{
