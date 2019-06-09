@@ -1,10 +1,17 @@
 #include <bits/stdc++.h>
-#define FOR(i, s, g) for(int i = s; i < g; i++)
-#define FORR(i, s, g) for(int i = s - 1; i >= g; i--)
+#define FOR(i,a,n) for(ll i = ((ll) a); i < ((ll) n); ++i)
+#define FORR(i, s, g) for(ll i = ((ll)s - 1); i >= ((ll) g); --i)
 #define REP(i, n) FOR(i, 0, n)
 #define REPR(i, n) FORR(i, n, 0)
-#define ALL(v) v.begin(), v.end()
-#define DMP(a) std::cerr << "[Debug] : " << #a << " = " << a << "\n"
+#define ALL(v) (v).begin(), (v).end()
+#define RALL(v) (v).rbegin(), (v).rend()
+#define SORT_ALL(v) sort(ALL(v))
+#define PB push_back
+#define MP make_pair
+#define SZ(a) int((a).size())
+#define DMP(x)  cerr << #x << " = " << (x) << endl;
+#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl;
+#define CLR(a) memset((a), 0 ,sizeof(a))
 using namespace std;
 typedef long long ll;
 typedef vector<int> vi;
@@ -18,40 +25,38 @@ struct aaa{
 
 class UnionFind {
 private:
-    vi _par;
-    vi _rank;
+    vll _par;
+    vll _rank;
 public:
-    UnionFind(const int n);
-    int find(const int n);
-    void unite(int x, int y);
-    bool same(const int x, const int y);
+    UnionFind(const ll n);
+    ll root(const ll n);
+    bool unite(ll x, ll y);
+    bool same(const ll x, const ll y);
 };
 
-UnionFind::UnionFind(const int n) {
-    REP(i,n) {
-        _par.push_back(i);
-        _rank.push_back(0);
-    }
+UnionFind::UnionFind(const ll n) : _par(n), _rank(n, 1LL) {
+    REP(i,n) _par[i] = i;
 }
 
-int UnionFind::find(const int x) {
+ll UnionFind::root(const ll x) {
     if(_par[x] == x) return x;
-    else return _par[x] = find(_par[x]);
+    else return _par[x] = root(_par[x]);
 }
 
-void UnionFind::unite(int x, int y) {
-    x = find(x);
-    y = find(y);
-    if(x == y) return;
+bool UnionFind::unite(ll x, ll y) {
+    x = root(x);
+    y = root(y);
+    if(x == y) return false;
     if(_rank[x] < _rank[y]) _par[x] = y;
     else {
         _par[y] = x;
         if(_rank[x] == _rank[y]) _rank[x]++;
     }
+    return true;
 }
 
-bool UnionFind::same(const int x, const int y) {
-    return find(x) == find(y);
+bool UnionFind::same(const ll x, const ll y) {
+    return root(x) == root(y);
 }
 
 int main() {
@@ -73,8 +78,8 @@ int main() {
     map<pair<int, int>, int> ans;
     vector<pair<int, int>> p(n);
     REP(i, n) {
-        p[i].first = ufr.find(i);
-        p[i].second = ufl.find(i);
+        p[i].first = ufr.root(i);
+        p[i].second = ufl.root(i);
         ans[p[i]]++;
     }
     REP(i, n) {
