@@ -18,19 +18,21 @@ using namespace std;
 #define EXIST(s,e) ((s).find(e)!=(s).end())
 
 // For Debug
-#define DMP(x)  cerr << #x << " = " << (x) << endl;
-#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl;
+#define DMP(x)  cerr << #x << " = " << (x) << endl
+#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl
 
 // Aliases
 #define PB push_back
 #define MP make_pair
-#define FST first
-#define SND second
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<long long> vll;
 typedef vector<string> vs;
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pll;
+typedef vector<pii> vpii;
+typedef vector<pll> vpll;
 
 // I/O Asynchronizing
 struct aaa{

@@ -18,8 +18,8 @@ using namespace std;
 #define EXIST(s,e) ((s).find(e)!=(s).end())
 
 // For Debug
-#define DMP(x)  cerr << #x << " = " << (x) << endl;
-#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl;
+#define DMP(x)  cerr << #x << " = " << (x) << endl
+#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl
 
 // Aliases
 #define PB push_back

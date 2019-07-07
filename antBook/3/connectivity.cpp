@@ -9,8 +9,8 @@
 #define PB push_back
 #define MP make_pair
 #define SZ(a) int((a).size())
-#define DMP(x)  cerr << #x << " = " << (x) << endl;
-#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl;
+#define DMP(x)  cerr << #x << " = " << (x) << endl
+#define DBG(x) cerr << #x << " = " << (x) << " (L" << __LINE__ << ")" << " " << __FILE__ << endl
 #define CLR(a) memset((a), 0 ,sizeof(a))
 using namespace std;
 typedef long long ll;
