@@ -42,13 +42,16 @@ struct aaa{
 }aaaaaaa;
 
 int main() {
-    int n;
-    cin >> n;
-    vi a(n);
-    REP(i, n) {
-        cin >> a[i];
-        cout << a[i] << "\n";
-        cout << "hello" << "\n";
+    while(true) {
+        int n;
+        cin >> n;
+        if(n == 0) break;
+        vi a(n);
+        REP(i, n) {
+            cin >> a[i];
+            cout << a[i] << "\n";
+            cout << "hello" << "\n";
+        }
     }
 
     return 0;
