@@ -25,6 +25,7 @@ using namespace std;
 #define PB push_back
 #define MP make_pair
 typedef long long ll;
+typedef string str;
 typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<long long> vll;
