@@ -51,9 +51,7 @@ int main() {
         REP(i, n) {
             cin >> a[i];
             cout << a[i] << "\n";
-            cout << "hello" << "\n";
         }
     }
-
     return 0;
 }
