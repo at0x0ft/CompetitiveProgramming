@@ -66,6 +66,7 @@
         "shared_mutex": "cpp",
         "string_view": "cpp"
     },
-    "C_Cpp.clang_format_fallbackStyle": "Google",
-    "files.eol": "\n"
+    "C_Cpp.clang_format_style": ".vscode/.clang-format",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
 }

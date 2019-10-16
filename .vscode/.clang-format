@@ -1,0 +1,7 @@
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortWhileStatementsOnASingleLine: true
+AlwaysBreakTemplateDeclarations: true
+BreakBeforeBraces: Attach
+IndentCaseLabels: false
+ColumnLimit: 0
