@@ -9,7 +9,7 @@ typedef string str;
 
 // 文字列sをランレングス圧縮し, 結果のpair-vectorを返す;
 // pair : pair.first = 文字 : char, pair.second = 出現回数 : int
-// 計算量 O(|S|)
+// 計算量 : O(|S|)
 vector<pair<char, int>> run_length(const str &s) {
     vector<pair<char, int>> res;
 
