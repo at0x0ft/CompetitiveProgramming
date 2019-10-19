@@ -6,6 +6,7 @@ typedef long long ll;
 // 整数nを素因数分解し, 分解結果のmapを返す;
 // key = 素因数, value = 素因数の指数
 // required : n >= 2
+// 計算量 : 最悪 ~ O(2^(n/2))
 map<ll, int> trial_division(ll n) {
     map<ll, int> res;
     // 2の場合のみ先行して処理 (次以降の更新効率を上げるため)
