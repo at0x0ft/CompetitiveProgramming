@@ -35,6 +35,11 @@ typedef pair<ll, ll> pll;
 typedef vector<pii> vpii;
 typedef vector<pll> vpll;
 
+
+// Constant variables
+const long double PI = (acos(-1));
+const long long MOD = 1000000007;
+
 // I/O Asynchronizing
 struct aaa{
     aaa(){
