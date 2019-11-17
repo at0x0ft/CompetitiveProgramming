@@ -24,67 +24,115 @@ using namespace std;
 // Aliases
 #define PB push_back
 #define MP make_pair
-typedef long long ll;
-typedef string str;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
-typedef vector<long long> vll;
-typedef vector<string> vs;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-typedef vector<pii> vpii;
-typedef vector<pll> vpll;
+using ll = long long;
+using ld = long double;
+using str = string;
+using vi = vector<int>;
+using vvi = vector<vi>;
+using vll = vector<ll>;
+using vs = vector<str>;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vpii = vector<pii>;
+using vpll = vector<pll>;
 
 // Constant variables
-const long double PI = (acos(-1));
-const long long MOD = 1000000007;
+const ld PI = (acos(-1));
+const ll MOD = 1000000007;
 
 // I/O Asynchronizing
-struct aaa{
-    aaa(){
+struct __io_async{
+    __io_async(){
         cin.tie(0); ios::sync_with_stdio(0); cout<<fixed<<setprecision(20);
     };
-}aaaaaaa;
+};
 
-vector<ll> fac(300001);
-vector<ll> ifac(300001);
+struct Mint {
+    static constexpr ll MOD = 1000000007;
 
-ll mpow(ll x, ll n){
-    ll ans = 1;
-    while(n != 0){
-        if(n&1) ans = ans * x % MOD;
-        x = x*x % MOD;
-        n = n >> 1;
+    // Constructors
+    Mint() : num(1ll) {}
+    Mint(ll num_) : num(num_ % MOD) {}
+    Mint(const Mint& Mint) : num(Mint.num % MOD) {}
+    ll get()const { return num; }
+
+    // operator etc
+    operator ll() const { return num; }
+    ll operator*() { return num; }
+    Mint& operator+=(const Mint& r) { (num += r.num) %= MOD; return *this; }
+    Mint& operator-=(const Mint& r) { ((num += -r.num) < 0) ? (num += MOD) : num ; return *this; }
+    Mint& operator*=(const Mint& r) { (num *= r.num) %= MOD; return *this; }
+    Mint& operator/=(const Mint& r) { (num *= r.inv().num) %= MOD; return *this; }
+    Mint& operator+=(const ll& r) { (num += r) %= MOD; return *this; }
+    Mint& operator-=(const ll& r) { (num += -r + MOD) %= MOD; return *this; }
+    Mint& operator*=(const ll& r) { (num *= r) %= MOD; return *this; }
+    Mint& operator/=(const ll& r) { (num *= Mint(r).inv().num) %= MOD; return *this; }
+    Mint operator+(const Mint& r)const { return Mint(*this) += r; }
+    Mint operator-(const Mint& r)const { return Mint(*this) -= r; }
+    Mint operator*(const Mint& r)const { return Mint(*this) *= r; }
+    Mint operator/(const Mint& r)const { return Mint(*this) /= r; }
+    Mint operator+(const ll& r)const { return *this + Mint(r); }
+    Mint operator-(const ll& r)const { return *this - Mint(r); }
+    Mint operator*(const ll& r)const { return *this * Mint(r); }
+    Mint operator/(const ll& r)const { return *this / Mint(r); }
+    Mint inv()const {
+        ll a = num, b = MOD, x = 1, y = 0;
+        while(b) {
+            ll q = a / b;
+            a -= b * q;
+            swap(a, b);
+            x -= y * q;
+            swap(x, y);
+        }
+        return ((x %= MOD) < 0) ? x += MOD : x;
     }
-    return ans;
-}
+    Mint pow(const Mint& r)const {
+        ll res = 1;
+        ll x = num;
+        ll n = r.num;
+        while (n > 0) {
+            if (n & 1)res = (res * x) % MOD;
+            x = (x * x) % MOD;
+            n >>= 1;
+        }
+        return res;
+    }
 
-ll comb(ll a, ll b){
-    if(a == 0 && b == 0)return 1;
-    if(a < b || a < 0)return 0;
-    ll tmp = ifac[a-b]* ifac[b] % MOD;
-    return tmp * fac[a] % MOD;
-}
+private:
+    ll num;
+    inline void swap(ll &a, ll &b)const { ll tmp = a; a = b; b = tmp; }
+};
+ostream& operator<<(ostream& stream, const Mint& val) { stream << val.get(); return stream; }
 
-ll solve(const int x, const int y) {
-    if((x + y) % 3 != 0) return 0;
-    if(x > y) return solve(y, x);
-    int k = (x + y) / 3;
-    if(x < k) return 0;
-    DBG(k);
-    return comb(k, x - k);
+
+struct Cmb {
+    static constexpr ll LIM = 2000010;
+    vector<Mint> fact, inv;
+
+    Cmb() : fact(LIM, 1), inv(LIM, 1) {
+        FOR(i, 1, LIM) fact[i] = fact[i - 1] * i;
+        inv[LIM - 1] = fact[LIM - 1].inv();
+        FORR(i, LIM - 1, 1) inv[i] = inv[i + 1] * (i + 1);
+    }
+
+    ll calc(const ll n, const ll k) {
+        if(n < k) return 0;
+        return (fact[n] * inv[k] * inv[n - k]).get();
+    }
+};
+
+ll calc(const int x, const int y) {
+    if(x > y) return calc(y, x);
+    ll n = (x + y) / 3;
+    if((x + y) % 3 != 0 || x < n) return 0;
+    Cmb c;
+    return c.calc(n, x - n);
 }
 
 int main() {
     int x, y;
     cin >> x >> y;
-    fac[0] = 1;
-    ifac[0] = 1;
-    for(ll i = 0; i<300000; i++){
-        fac[i+1] = fac[i]*(i+1) % MOD;
-        ifac[i+1] = ifac[i]*mpow(i+1, MOD-2) % MOD;
-    }
-    cout << solve(x, y) << "\n";
+    cout << calc(x, y) << "\n";
 
     return 0;
 }
