@@ -47,50 +47,46 @@ struct __io_async{
     };
 };
 
-#define MAX_H 500
-#define MAX_W 500
-int h, w;
-int a[MAX_H][MAX_W];
-bool is_selected[MAX_H][MAX_W];
-int dx[] = { 1, 0 };
-int dy[] = { 0, 1 };
-queue<pair<pii, pii>> que;
+#define MAX_N 50
+int n;
+int connect[MAX_N][MAX_N];
+set<pii> st;
 
-inline bool is_in_range(const int y, const int x) {
-    return 0 <= y && y < h && 0 <= x && x < w;
-}
-
-void op() {
-    REP(j, h) {
-        REP(i, w) {
-            if(a[j][i] % 2 == 1) {
-                REP(k, 2) {
-                    int ny = j + dy[k], nx = i + dx[k];
-                    if(is_in_range(ny, nx)) {
-                        a[j][i]--;
-                        a[ny][nx]++;
-                        que.push(make_pair(make_pair(j + 1, i + 1), make_pair(ny + 1, nx + 1)));
-                        break;
-                    }
-                }
-            }
+bool can_reach(const int start_node, set<int> &ns) {
+    ns.insert(start_node);
+    REP(i, n) {
+        if(i == start_node) continue;
+        if(connect[start_node][i] == 1 && ns.count(i) == 0) {
+            can_reach(i, ns);
         }
     }
+    return ns.size() == n;
+}
+
+int search() {
+    int ans = 0;
+    for(auto e : st) {
+        connect[e.first][e.second] = 0;
+        connect[e.second][e.first] = 0;
+        set<int> ns;
+        if(!can_reach(e.first, ns)) ans++;
+        connect[e.first][e.second] = 1;
+        connect[e.second][e.first] = 1;
+    }
+    return ans;
 }
 
 int main() {
-    cin >> h >> w;
-    REP(j, h) {
-        REP(i, w) {
-            cin >> a[j][i];
-        }
+    int m;
+    cin >> n >> m;
+    REP(i, m) {
+        int a, b;
+        cin >> a >> b;
+        connect[a - 1][b - 1] = 1;
+        connect[b - 1][a - 1] = 1;
+        st.insert(make_pair(a -1, b - 1));
     }
-    op();
-    cout << que.size() << endl;
-    while(!que.empty()) {
-        int oy = que.front().first.first, ox = que.front().first.second, ny = que.front().second.first, nx = que.front().second.second;
-        que.pop();
-        cout << oy << " " << ox << " " << ny << " " << nx << endl;
-    }
+    cout << search() << "\n";
+
     return 0;
 }
