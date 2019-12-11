@@ -47,14 +47,36 @@ struct __io_async{
     };
 };
 
+char d[] = { '3', '5', '7' };
+str s;
+
+inline bool ok(const str t) {
+    bitset<3> b("000");
+    REP(i, t.length()) {
+        b[(t[i] - '0') / 2 - 1] = true;
+    }
+    return b.all();
+}
+
+int dfs(const int loc, const str t) {
+    str n = t;
+    int res = 0;
+    if(loc < 0) return 0;
+    REP(i, 3) {
+        n = d[i] + t;
+        if(stoi(n) <= stoi(s) && ok(n)) {
+            res++;
+        }
+        res += dfs(loc - 1, n);
+    }
+    return res;
+}
+
 int main() {
-    pii s, t;
-    str r = "", u = "", l = "", d = "";
-    cin >> s.first >> s.second >> t.first >> t.second;
-    REP(i, t.first - s.first) r += "R";
-    REP(i, t.second - s.second) u += "U";
-    REP(i, t.first - s.first) l += "L";
-    REP(i, t.second - s.second) d += "D";
-    cout << (r + u + l + d + "D" + r + "R" + u + "ULU" + l + "LD" + d + "R") << "\n";
+    cin >> s;
+    set<str> st;
+    int ans = dfs(s.length() - 1, "");
+    cout << ans << endl;
+
     return 0;
 }

@@ -47,14 +47,31 @@ struct __io_async{
     };
 };
 
+inline bool ok(const str &s, const ll loc, const str &t) {
+    int i = loc;
+    REPR(j, t.length()) {
+        if(i < 0) return false;
+        if(s[i] == '?' || s[i] == t[j]) i--;
+        else return false;
+    }
+    return true;
+}
+
 int main() {
-    pii s, t;
-    str r = "", u = "", l = "", d = "";
-    cin >> s.first >> s.second >> t.first >> t.second;
-    REP(i, t.first - s.first) r += "R";
-    REP(i, t.second - s.second) u += "U";
-    REP(i, t.first - s.first) l += "L";
-    REP(i, t.second - s.second) d += "D";
-    cout << (r + u + l + d + "D" + r + "R" + u + "ULU" + l + "LD" + d + "R") << "\n";
+    str s, t, ans = "";
+    cin >> s >> t;
+    REPR(i, s.length()) {
+        if(ok(s, i, t)) {
+            s = s.substr(0, i - t.length() + 1) + t + s.substr(i + 1);
+            break;
+        }
+        if(i <= 0) ans = "UNRESTORABLE";
+    }
+    REP(i, s.length()) {
+        if(s[i] == '?') s[i] = 'a';
+    }
+
+    cout << (ans != "" ? ans : s) << endl;
+
     return 0;
 }
