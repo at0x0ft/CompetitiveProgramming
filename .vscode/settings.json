@@ -64,7 +64,15 @@
         "cuchar": "cpp",
         "optional": "cpp",
         "shared_mutex": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "algorithm": "cpp",
+        "iterator": "cpp",
+        "map": "cpp",
+        "memory_resource": "cpp",
+        "random": "cpp",
+        "regex": "cpp",
+        "set": "cpp",
+        "string": "cpp"
     },
     "C_Cpp.clang_format_style": ".vscode/.clang-format",
     "editor.formatOnSave": true,
